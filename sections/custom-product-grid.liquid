@@ -1,0 +1,105 @@
+
+{% comment %}
+  Custom Product Grid (6 products)
+  - Merchant can select up to 6 products from the Theme Editor (block type: product)
+  - Each block renders image / title / price
+  - Clicking Quick view opens the popup (requires custom-popup.js present in assets)
+{% endcomment %}
+
+<section class="custom-grid custom-grid--{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="custom-grid__wrap">
+    {% for block in section.blocks %}
+      {% assign product = all_products[block.settings.product] %}
+      {% if product %}
+        <article class="product-card" data-handle="{{ product.handle }}">
+          <div class="product-card__media">
+            {% if product.featured_image %}
+              <img loading="lazy" src="{{ product.featured_image | img_url: '720x' }}" alt="{{ product.title | escape }}">
+            {% else %}
+              <div class="product-card__placeholder">No image</div>
+            {% endif %}
+          </div>
+
+          <div class="product-card__info">
+            <h3 class="product-card__title">{{ product.title }}</h3>
+
+            <div class="product-card__price">
+              {% comment %} Show lowest variant price. Use money_format if available {% endcomment %}
+              {% assign lowest_price = product.price_min %}
+              <span class="price">{{ lowest_price | money }}</span>
+            </div>
+
+            <div class="product-card__actions">
+              <button type="button" class="btn-ghost product-card__quickview" aria-haspopup="dialog">Quick view</button>
+              <a class="product-card__link" href="{{ product.url }}">View product</a>
+            </div>
+          </div>
+        </article>
+      {% else %}
+        <article class="product-card product-card--empty">
+          <div class="product-card__placeholder">Select a product in the editor</div>
+        </article>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  {%- comment -%} Include popup root for this section (if you already have it globally, you can remove) {%- endcomment -%}
+  <div class="product-popup hidden" id="product-popup-{{ section.id }}" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="product-popup__overlay" data-popup-close></div>
+    <div class="product-popup__dialog" role="document">
+      <button class="product-popup__close" type="button" aria-label="Close" data-popup-close>×</button>
+      <div class="product-popup__body">
+        <div class="product-popup__media"><img id="pp-image-{{ section.id }}" alt=""></div>
+        <div class="product-popup__details">
+          <h2 id="pp-title-{{ section.id }}"></h2>
+          <div class="product-popup__price">
+            <span id="pp-price-{{ section.id }}"></span>
+            <span id="pp-compare-{{ section.id }}" class="price--compare hidden"></span>
+          </div>
+          <div id="pp-description-{{ section.id }}" class="product-popup__description"></div>
+
+          <form id="pp-form-{{ section.id }}">
+            <div id="pp-options-{{ section.id }}" class="pp-options"></div>
+            <input type="hidden" id="pp-variant-id-{{ section.id }}">
+            <button class="btn-cta" type="submit">
+              <span>Add to Cart</span>
+            </button>
+          </form>
+
+          <div id="pp-error-{{ section.id }}" class="pp-error hidden" role="alert"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Load the common CSS & JS for this section (adjust filenames if different) {%- endcomment -%}
+  {{ 'custom-sections.css' | asset_url | stylesheet_tag }}
+  {{ 'custom-popup.js' | asset_url | script_tag }}
+</section>
+
+{% schema %}
+{
+  "name": "Custom Product Grid (6 products)",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product block",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select product"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Custom Product Grid",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}
