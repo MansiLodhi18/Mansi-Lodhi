@@ -1,0 +1,105 @@
+
+{{ 'ee-test.css' | asset_url | stylesheet_tag }}
+{{ 'ee-test.js'  | asset_url | script_tag }}
+
+{%- assign addon = section.settings.addon_product -%}
+{% if addon %}
+  <!-- Expose add-on product to JS -->
+  <script id="ee-addon-product" type="application/json">
+    {{ addon | json }}
+  </script>
+{% endif %}
+
+<section id="grid" class="ee-grid">
+  <div class="ee-container">
+    {% if section.settings.heading != blank %}
+      <h2 style="margin-bottom:12px">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="ee-grid__wrap">
+      {% for block in section.blocks %}
+        {%- assign p = block.settings.product -%}
+        <div class="ee-card" {{ block.shopify_attributes }}>
+          {% if p and p.featured_image %}
+            <img
+              src="{{ p.featured_image | image_url: width: 800 }}"
+              width="{{ p.featured_image.width }}"
+              height="{{ p.featured_image.height }}"
+              alt="{{ p.title | escape }}"
+              loading="lazy">
+          {% else %}
+            <div style="aspect-ratio:1/1;display:grid;place-items:center;color:#9ca3af;">Select a product</div>
+          {% endif %}
+
+          {% if p %}
+            <!-- hotspot trigger -->
+            <button type="button" class="ee-hotspot" aria-label="Open product quick view" data-ee-open-modal>●</button>
+            <!-- embed product JSON for JS -->
+            <script type="application/json" class="ee-product-data">
+              {{ p | json }}
+            </script>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Modal root (one instance reused for all products) -->
+  <div class="ee-modal__backdrop" data-ee-modal-root>
+    <div class="ee-modal" role="dialog" aria-modal="true" aria-label="Quick view">
+      <div class="ee-modal__header">
+        <strong data-ee-modal-title>Product</strong>
+        <button class="ee-close" type="button" aria-label="Close">×</button>
+      </div>
+
+      <div class="ee-modal__content">
+        <img data-ee-modal-img alt="" width="140" height="140" style="border-radius:8px;object-fit:cover;background:#f3f4f6;">
+        <div>
+          <div class="ee-price" data-ee-modal-price></div>
+          <div class="ee-options" data-ee-modal-options></div>
+
+          <div style="display:flex; align-items:center; gap:12px; margin:12px 0;">
+            <label for="ee-qty" style="font-size:12px;color:#6b7280;">Qty</label>
+            <input id="ee-qty" class="ee-qty" type="number" min="1" value="1" data-ee-modal-qty>
+          </div>
+
+          <div data-ee-modal-desc class="ee-subcopy"></div>
+        </div>
+      </div>
+
+      <div class="ee-modal__footer">
+        <button class="ee-btn" type="button" data-ee-close>Close</button>
+        <button class="ee-btn ee-btn--dark" type="button" data-ee-add>
+          ADD TO CART <span class="ee-arrow">→</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "EE • Product Grid",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Tisso vison in the wild" },
+    {
+      "type": "product",
+      "id": "addon_product",
+      "label": "Add-on product (Soft Winter Jacket)",
+      "info": "This product will be auto-added when selected options include Black + Medium."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "limit": 6,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Choose product" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "EE • Product Grid", "blocks": [{ "type": "product" }, { "type": "product" }, { "type": "product" }, { "type": "product" }, { "type": "product" }, { "type": "product" }]}]
+}
+{% endschema %}
