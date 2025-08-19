@@ -9,7 +9,12 @@
 {{ 'ee-test.css' | asset_url | stylesheet_tag }}
 {{ 'ee-test.js'  | asset_url | script_tag }}
 
-<section class="ee-banner" style="{% if section.settings.bg_image != blank %}background-image:url({{ section.settings.bg_image | image_url }});{% endif %}">
+<section 
+  class="ee-banner"
+  {% if section.settings.bg_image != blank %}
+    style="background-image:url({{ section.settings.bg_image | image_url }});"
+  {% endif %}
+>
   <div class="ee-container">
     <div class="ee-banner__top">
       <div class="ee-brand">{{ section.settings.brand_badge }}</div>
@@ -34,25 +39,76 @@
   </div>
 </section>
 
-{% javascript %}
-  {{ 'ee-test.js' | asset_url | script_tag }}
-{% endjavascript %}
 
 {% schema %}
 {
-  "name": "EE • Banner",
+  "name": "ee-banner",
   "settings": [
-    { "type": "image_picker", "id": "bg_image", "label": "Background image (optional)" },
-    { "type": "text", "id": "brand_badge", "label": "Brand badge", "default": "TISSO VISON" },
-    { "type": "text", "id": "announcement", "label": "Announcement text", "default": "Find the ideal gift for your loved ones." },
-    { "type": "text", "id": "headline", "label": "Headline", "default": "The Gift Guide" },
-    { "type": "textarea", "id": "subcopy", "label": "Sub copy", "default": "Discover Joy: Your Ultimate Holiday Gift Destination..." },
-    { "type": "text", "id": "cta_primary_label", "label": "Primary button label", "default": "CHOOSE GIFT →" },
-    { "type": "url",  "id": "cta_primary_link",  "label": "Primary button link", "default": "#grid" },
-    { "type": "text", "id": "cta_secondary_label", "label": "Secondary button label", "default": "SHOP NOW →" },
-    { "type": "url",  "id": "cta_secondary_link",  "label": "Secondary button link", "default": "/collections/all" },
-    { "type": "text", "id": "bottom_strip", "label": "Bottom strip text", "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL" }
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background image (optional)"
+    },
+    
+     {
+      "type": "text",
+      "id": "brand_badge",
+      "label": "Brand badge",
+      "default": "TISSO VISION"
+    },
+    {
+      "type": "text",
+      "id": "announcement",
+      "label": "Announcement text",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "text",
+      "id": "subcopy",
+      "label": "Sub copy",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination."
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_label",
+      "label": "Primary button label",
+      "default": "CHOOSE GIFT"
+    },
+    {
+      "type": "url",
+      "id": "cta_primary_link",
+      "label": "Primary button link",
+      "default": "/grid"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_label",
+      "label": "Secondary button label",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "cta_secondary_link",
+      "label": "Secondary button link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "bottom_strip",
+      "label": "Bottom strip text",
+      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 4XL"
+    }
   ],
-  "presets": [{ "name": "EE • Banner" }]
+  "presets": [
+    {
+      "name": "ee-banner"
+    }
+  ]
 }
 {% endschema %}
