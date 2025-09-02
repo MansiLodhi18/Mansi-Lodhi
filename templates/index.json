@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "hero_jVaWmY": {
       "type": "hero",
@@ -61,6 +62,7 @@
       "settings": {
         "media_type_1": "image",
         "media_type_2": "image",
+        "link": "",
         "open_in_new_tab": false,
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -277,10 +279,65 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "ee_product_grid_zUyPFt": {
+      "type": "ee-product-grid",
+      "blocks": {
+        "product_VxYJMp": {
+          "type": "product",
+          "settings": {
+            "product": "black-leather-bag"
+          }
+        },
+        "product_tEeGJ8": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_eQK9wT": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_wQVEUD": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_TniP4F": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_GdPCz4": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_VxYJMp",
+        "product_tEeGJ8",
+        "product_eQK9wT",
+        "product_wQVEUD",
+        "product_TniP4F",
+        "product_GdPCz4"
+      ],
+      "name": "EE • Product Grid",
+      "settings": {
+        "heading": "Tisso vison in the wild",
+        "addon_product": ""
+      }
     }
   },
   "order": [
     "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "product_list_fa6P9H",
+    "ee_product_grid_zUyPFt"
   ]
 }
