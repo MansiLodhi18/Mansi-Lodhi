@@ -1,0 +1,38 @@
+
+{
+  "name": "Ecomexperts Test Page",
+  "sections": {
+    "ee-banner": {
+      "type": "ee-banner",
+      "settings": {
+        "bg_image": "",
+        "brand_badge": "TISSO VISON",
+        "announcement": "Find the ideal gift for your loved ones.",
+        "headline": "The Gift Guide",
+        "subcopy": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "cta_primary_label": "CHOOSE GIFT →",
+        "cta_primary_link": "#grid",
+        "cta_secondary_label": "SHOP NOW →",
+        "cta_secondary_link": "/collections/all",
+        "bottom_strip": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+      }
+    },
+    "ee-grid": {
+      "type": "ee-product-grid",
+      "settings": {
+        "heading": "Tisso vison in the wild",
+        "addon_product": null
+      },
+      "blocks": {
+        "product_1": { "type": "product", "settings": { "product": null }},
+        "product_2": { "type": "product", "settings": { "product": null }},
+        "product_3": { "type": "product", "settings": { "product": null }},
+        "product_4": { "type": "product", "settings": { "product": null }},
+        "product_5": { "type": "product", "settings": { "product": null }},
+        "product_6": { "type": "product", "settings": { "product": null }}
+      },
+      "block_order": ["product_1","product_2","product_3","product_4","product_5","product_6"]
+    }
+  },
+  "order": ["ee-banner","ee-grid"]
+}
